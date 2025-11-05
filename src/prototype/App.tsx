@@ -1,16 +1,16 @@
 import React, { useMemo, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Separator } from "@/components/ui/separator";
-import { toast } from "sonner";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
+import { Input } from "../components/ui/input";
+import { Textarea } from "../components/ui/textarea";
+import { Switch } from "../components/ui/switch";
+import { Label } from "../components/ui/label";
+import { Slider } from "../components/ui/slider";
+import { Checkbox } from "../components/ui/checkbox";
+import { Separator } from "../components/ui/separator";
+import { Toaster, toast } from "sonner";
 import { BarChart3, Calendar, CheckCircle2, FileDown, Filter, Info, Link as LinkIcon, ListChecks, Loader2, ShieldCheck, Target, UserCheck, Users2, Zap } from "lucide-react";
 
 /**
@@ -109,12 +109,25 @@ const MOCK_CANDIDATES = [
 const ALL_SKILLS = Array.from(new Set(MOCK_CANDIDATES.flatMap(c => c.skills))).sort();
 
 function tokenizeRole(roleText: string): string[] {
-  return roleText
-    .toLowerCase()
-    .replace(/[^a-z0-9+\\-# ]/g, " ")
-    .split(/\\s+/)
-    .filter(Boolean)
-    .filter(w => w.length > 2);
+
+ try {
+    return roleText
+      .toLowerCase()
+      .replace(CLEAN_RE, " ")
+      .split(/\s+/)
+      .filter(Boolean)
+      .filter(w => w.length > 2);
+  } catch {
+    // Ultra-safe fallback if the environment chokes on the regex for any reason
+    return roleText
+      .toLowerCase()
+      .replace(/[^a-z0-9 ]/g, " ")
+      .split(/\s+/)
+      .filter(Boolean)
+      .filter(w => w.length > 2);
+  }
+
+
 }
 
 function featureVector(cand: any, roleTokens: string[]) {

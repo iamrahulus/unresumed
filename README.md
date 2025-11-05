@@ -1,28 +1,28 @@
-# Unresumed — Prototype (Vite + React + TS)
+# Unresumed Delivery – Local Prototype
 
-A minimal, offline-friendly demo of the zero-resume hiring concept. It shows:
-- Role input → retrieval + interpretable rerank
-- Evidence cards per candidate
-- Consent-aware controls
-- Mock scheduling + CSV export
-- Fairness snapshot
+This is a **self-contained React + Vite + TypeScript** prototype showcasing:
+- Employer flow: job description, weighting controls, shortlist with **explainability**.
+- Candidate flow: presence configuration and **ranking improvement** guidance.
 
-## Quick start
+No backend required; all data is mocked.
 
+## Prereqs
+- Node.js 18+ and npm.
+
+## Run (local)
 ```bash
-# 1) Extract the zip
-cd unresumed-prototype
-
-# 2) Install deps
 npm install
-
-# 3) Run
 npm run dev
 ```
+Then open the printed local URL (e.g., http://localhost:5173).
 
-Then open http://localhost:5173
+## Build (optional)
+```bash
+npm run build
+npm run preview
+```
 
-### Tech notes
-- Local UI stubs live in `src/components/ui/*`, mimicking shadcn imports.
-- Prototype is in `src/prototype/App.tsx` and mounted from `src/main.tsx`.
-- No external network calls are made; all data is mocked.
+## Notes
+- Role-based views are toggled in the header (Employer View / Candidate View).
+- Weight sliders update scores and explanations in real time.
+- To customize data, edit `src/data/sample.ts`.

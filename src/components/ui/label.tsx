@@ -1,2 +1,5 @@
-import React from 'react';
-export function Label({children, htmlFor, className}:{children:any,htmlFor?:string,className?:string}){ return <label htmlFor={htmlFor} className={className}>{children}</label> }
+import * as React from "react";
+export function Label(props: React.LabelHTMLAttributes<HTMLLabelElement>) {
+  return <label {...props} className={["text-sm font-medium text-slate-700", props.className].filter(Boolean).join(" ")} />;
+}
+
